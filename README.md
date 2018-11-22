@@ -1,8 +1,12 @@
-for Studying
-
+for Studying 
 
 # Randomer
 Select randomly among input item
+
+Architecture
+-------------
+
+  * MVVM(Model-View-ViewModel)
 
 Programming Language
 -------------
@@ -12,5 +16,6 @@ Programming Language
 Dependencies
 -------------
 
+  * DataBinding
   * AAC
-    - room  
+    - room
