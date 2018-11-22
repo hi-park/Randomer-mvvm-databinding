@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable name="viewmodel"
+                  type="com.hipark.randomer.itemdetail.ItemDetailViewModel" />
+
+        <variable name="listener"
+                  type="com.hipark.randomer.itemdetail.ItemDetailUserActionsListener" />
+
+    </data>
+
+    <com.hipark.randomer.main.ScrollChildSwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRefreshListener="@{viewmodel::onRefresh}"
+            app:refreshing="@{viewmodel.dataLoading}">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewmodel.dataAvailable ? View.VISIBLE : View.GONE}">
+            <TextView
+                    android:id="@+id/item_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@{viewmodel.item.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            <TextView
+                    android:id="@+id/item_detail_description"
+                    android:layout_below="@id/item_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/item_detail_title"
+                    app:layout_constraintTop_toBottomOf="@+id/item_detail_title"
+                    tools:text="@{viewmodel.item.description}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            <Button
+                    android:id="@+id/item_detail_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="@{(view) -> listener.onDelete(view)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewmodel.dataAvailable ? View.GONE : View.VISIBLE}">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_data"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+        </android.support.constraint.ConstraintLayout>
+
+
+    </com.hipark.randomer.main.ScrollChildSwipeRefreshLayout>
+</layout>
